@@ -63,8 +63,8 @@ var (
 func loadConfig() {
 	sites = envList("MONITOR_URLS", "https://bigtree-group.com,https://shop.bigtree-group.com")
 
-	checkInterval = envDuration("CHECK_INTERVAL")
-	httpTimeout = envDuration("HTTP_TIMEOUT")
+	checkInterval = 1 * time.Minute
+	httpTimeout = 20 * time.Second
 
 	smtpHost = env("SMTP_HOST", "")
 	smtpPort = env("SMTP_PORT", "")
@@ -77,7 +77,7 @@ func loadConfig() {
 
 	// Re-alert at most once per this window while a site stays down,
 	// and send a recovery email when it comes back.
-	realertEvery = envDuration("REALERT_EVERY")
+	realertEvery = 60 * time.Minute
 }
 
 type siteState struct {
@@ -250,13 +250,4 @@ func envList(key, def string) []string {
 		}
 	}
 	return out
-}
-
-func envDuration(key string, def time.Duration) time.Duration {
-	if v := os.Getenv(key); v != "" {
-		if d, err := time.ParseDuration(v); err == nil {
-			return d
-		}
-	}
-	return def
 }

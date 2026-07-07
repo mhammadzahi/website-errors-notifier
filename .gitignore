@@ -1,0 +1,8 @@
+# Secrets — never commit
+.env
+smtp_creds.txt
+
+# Build output
+/Error-notify
+/main
+*.exe

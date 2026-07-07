@@ -1,0 +1,30 @@
+[Unit]
+Description=Website errors notifier
+Documentation=https://github.com/bigtree-group/website-errors-notifier
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=webnotifier
+Group=webnotifier
+WorkingDirectory=/opt/website-errors-notifier
+# Secrets loaded from .env (also read by the app itself). '-' = ok if missing.
+EnvironmentFile=-/opt/website-errors-notifier/.env
+ExecStart=/opt/website-errors-notifier/website-errors-notifier
+Restart=on-failure
+RestartSec=10
+
+# --- hardening ---
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

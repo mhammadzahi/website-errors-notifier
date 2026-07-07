@@ -3,6 +3,6 @@
 smtp_creds.txt
 
 # Build output
-/Error-notify
+/website-errors-notifier
 /main
 *.exe

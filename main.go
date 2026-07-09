@@ -63,8 +63,8 @@ var (
 func loadConfig() {
 	sites = envList("MONITOR_URLS", "https://bigtree-group.com,https://shop.bigtree-group.com")
 
-	checkInterval = 2 * time.Minute
-	httpTimeout = 20 * time.Second
+	checkInterval = 5 * time.Minute
+	httpTimeout = 25 * time.Second
 
 	smtpHost = env("SMTP_HOST", "")
 	smtpPort = env("SMTP_PORT", "")
